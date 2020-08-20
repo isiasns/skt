@@ -59,14 +59,14 @@ public class RabbitMqTest {
     }
 
     @Test
-    public void givenProductWhenSendToProductQueueThenMessageBodyIsProduct() throws JSONException {
+    public void givenProductWhenSendToProductQueueThenMessageBodyIsProduct() {
         rabbitTemplate.convertAndSend(ProductRabbitMqConfig.PRODUCT_QUEUE_NAME, Product.builder().id(1).sku("sku").description("description").units(1).build());
         Product product = (Product) rabbitTemplate.receiveAndConvert(ProductRabbitMqConfig.PRODUCT_QUEUE_NAME);
         assertEquals(1, product.getId());
     }
 
     @Test
-    public void givenProductListWhenSendToProductListQueueThenMessageBodyIsProductList() throws JSONException {
+    public void givenProductListWhenSendToProductListQueueThenMessageBodyIsProductList() {
         rabbitTemplate.convertAndSend(ProductRabbitMqConfig.PRODUCT_LIST_QUEUE_NAME, Products.builder().productList(Collections.emptyList()).build());
         Products products = (Products) rabbitTemplate.receiveAndConvert(ProductRabbitMqConfig.PRODUCT_LIST_QUEUE_NAME);
         assertEquals(Collections.emptyList(), products.getProductList());
