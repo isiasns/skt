@@ -1,19 +1,15 @@
 package com.skt.exercise.common.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Product implements Serializable {
-    private int id;
-    private String sku;
-    private String description;
-    private int units;
+public class ProductList implements Serializable {
+    private List<Product> productList;
 }
