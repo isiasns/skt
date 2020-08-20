@@ -1,0 +1,17 @@
+version: "3"
+services: 
+    rabbitmq-container:
+        image: rabbitmq:3-management
+        ports: 
+            - 5672:5672
+            - 15672:15672
+
+    mysql-container:
+        image: mysql
+        ports: 
+            - 3306:3306
+        environment: 
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=skt
+            - MYSQL_USER=user
+            - MYSQL_PASSWORD=password
