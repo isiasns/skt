@@ -32,7 +32,6 @@ public class RabbitMqTest {
     public void givenProductWhenSendToProductQueueThenMessageIsNotNull() {
         rabbitTemplate.convertAndSend(ProductRabbitMqConfig.PRODUCT_QUEUE_NAME, Product.builder().id(1).sku("sku").description("description").units(1).build());
         Message message = rabbitTemplate.receive(ProductRabbitMqConfig.PRODUCT_QUEUE_NAME);
-        System.out.println(message);
         assertNotNull(message);
     }
 
@@ -40,7 +39,6 @@ public class RabbitMqTest {
     public void givenProductListWhenSendToProductListQueueThenMessageIsNotNull() {
         rabbitTemplate.convertAndSend(ProductRabbitMqConfig.PRODUCT_LIST_QUEUE_NAME, Products.builder().productList(Collections.emptyList()).build());
         Message message = rabbitTemplate.receive(ProductRabbitMqConfig.PRODUCT_LIST_QUEUE_NAME);
-        System.out.println(message);
         assertNotNull(message);
     }
 
