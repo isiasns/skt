@@ -1,6 +1,7 @@
 package com.skt.exercise.common.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductList implements Serializable {
+@Builder
+public class Products implements Serializable {
     private List<Product> productList;
 }
