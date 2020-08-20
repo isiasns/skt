@@ -30,7 +30,7 @@ public class RabbitMqTest {
 
     @Test
     public void givenProductWhenSendToProductQueueThenMessageIsNotNull() {
-        rabbitTemplate.convertAndSend(ProductRabbitMqConfig.PRODUCT_QUEUE_NAME, Product.builder().id(1).sku("sku").description("description").units(1).build());
+        rabbitTemplate.convertAndSend(ProductRabbitMqConfig.PRODUCT_QUEUE_NAME, Product.builder().id(1).sku("sku").name("name").description("description").units(1).build());
         Message message = rabbitTemplate.receive(ProductRabbitMqConfig.PRODUCT_QUEUE_NAME);
         assertNotNull(message);
     }
@@ -44,9 +44,9 @@ public class RabbitMqTest {
 
     @Test
     public void givenProductWhenSendToProductQueueThenMessageBodyIsJson() throws JSONException {
-        rabbitTemplate.convertAndSend(ProductRabbitMqConfig.PRODUCT_QUEUE_NAME, Product.builder().id(1).sku("sku").description("description").units(1).build());
+        rabbitTemplate.convertAndSend(ProductRabbitMqConfig.PRODUCT_QUEUE_NAME, Product.builder().id(1).sku("sku").name("name").description("description").units(1).build());
         Message message = rabbitTemplate.receive(ProductRabbitMqConfig.PRODUCT_QUEUE_NAME);
-        JSONAssert.assertEquals("{\"id\":1,\"sku\":\"sku\",\"description\":\"description\",\"units\":1}", new String(message.getBody()), JSONCompareMode.STRICT);
+        JSONAssert.assertEquals("{\"id\":1,\"sku\":\"sku\",\"name\":\"name\",\"description\":\"description\",\"units\":1}", new String(message.getBody()), JSONCompareMode.STRICT);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class RabbitMqTest {
 
     @Test
     public void givenProductWhenSendToProductQueueThenMessageBodyIsProduct() {
-        rabbitTemplate.convertAndSend(ProductRabbitMqConfig.PRODUCT_QUEUE_NAME, Product.builder().id(1).sku("sku").description("description").units(1).build());
+        rabbitTemplate.convertAndSend(ProductRabbitMqConfig.PRODUCT_QUEUE_NAME, Product.builder().id(1).sku("sku").name("name").description("description").units(1).build());
         Product product = (Product) rabbitTemplate.receiveAndConvert(ProductRabbitMqConfig.PRODUCT_QUEUE_NAME);
         assertEquals(1, product.getId());
     }

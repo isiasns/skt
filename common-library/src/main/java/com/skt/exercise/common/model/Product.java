@@ -14,6 +14,7 @@ import java.io.Serializable;
 public class Product implements Serializable {
     private int id;
     private String sku;
+    private String name;
     private String description;
     private int units;
 }
