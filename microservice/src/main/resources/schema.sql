@@ -20,7 +20,7 @@ begin
            name,
            description,
            units
-    from products;
+    from skt.products;
 end;$$
 
 drop procedure if exists skt.insert_product;$$
@@ -29,4 +29,5 @@ create procedure skt.insert_product(IN p_sku varchar(20), IN p_name varchar(30),
 begin
     insert into products (sku, name, description, units)
     values (p_sku, p_name, p_description, p_units);
+    select id from skt.products where sku = p_sku;
 end;$$
