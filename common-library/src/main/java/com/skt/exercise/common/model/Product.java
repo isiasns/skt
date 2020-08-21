@@ -12,9 +12,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 public class Product implements Serializable {
-    private int id;
+    private Long id;
     private String sku;
     private String name;
     private String description;
-    private int units;
+    private Long units;
 }
