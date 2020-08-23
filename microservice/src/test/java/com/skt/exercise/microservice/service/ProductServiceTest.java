@@ -1,10 +1,12 @@
 package com.skt.exercise.microservice.service;
 
 import com.skt.exercise.common.model.Product;
+import com.skt.exercise.microservice.dto.ProductDto;
 import com.skt.exercise.microservice.repository.ProductRepository;
 import com.skt.exercise.microservice.util.DtoMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
@@ -14,9 +16,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Collections;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
@@ -52,12 +57,14 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void givenProductWhenInsertProductThenVerifyExecution() {
+    public void whenGetAllProductsThenReturnProductList() {
         Product product = Product.builder().id(1L).sku("sku").name("name").description("description").units(1L).build();
+        ProductDto productDto = ProductDto.builder().id(1L).sku("sku").name("name").description("description").units(1L).build();
         mockStatic(DtoMapper.class);
-        when(productRepository.insertProduct(any(String.class), any(String.class), any(String.class), any(Long.class))).thenReturn(1L);
-        Long result = productService.insertProduct(product);
-        verify(productRepository).insertProduct(any(String.class), any(String.class), any(String.class), any(Long.class));
-        assertNotEquals(0L, result.longValue());
+        PowerMockito.when(productRepository.getAllProducts()).thenReturn(Collections.singletonList(productDto));
+        PowerMockito.when(DtoMapper.mapToPojo(any(ProductDto.class))).thenReturn(product);
+        List<Product> result = productService.getAllProducts();
+        assertEquals(1, result.size());
+        assertEquals(1L, result.get(0).getId().longValue());
     }
 }
